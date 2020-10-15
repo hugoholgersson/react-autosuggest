@@ -114,7 +114,9 @@ describe('Default Autosuggest', () => {
     });
 
     it('should hide suggestions when Escape is pressed', () => {
+      clearEvents();
       clickEscape();
+      expectDontLetBrowserHandleKeyDown();
       expectSuggestions([]);
     });
 
@@ -240,7 +242,7 @@ describe('Default Autosuggest', () => {
       mouseEnterSuggestion(2);
     });
 
-    describe('when pressing ArrowDown', () => {
+    describe('when pressing down', () => {
       beforeEach(() => {
         clickDown();
       });
@@ -256,9 +258,16 @@ describe('Default Autosuggest', () => {
       focusAndSetInputValue('p');
     });
 
-    it('should show suggestions with no highlighted suggestion, if they are hidden', () => {
+    it('should show suggestions with no highlighted suggestion if they were hidden', () => {
+      expectSuggestions(['Perl', 'PHP', 'Python']);
+
+      clearEvents();
       clickEscape();
+      expectDontLetBrowserHandleKeyDown();
+      expectSuggestions([]);
+
       clickDown();
+      expectDontLetBrowserHandleKeyDown();
       expectSuggestions(['Perl', 'PHP', 'Python']);
       expectHighlightedSuggestion(null);
     });
@@ -291,9 +300,16 @@ describe('Default Autosuggest', () => {
       focusAndSetInputValue('p');
     });
 
-    it('should show suggestions with no highlighted suggestion, if they are hidden', () => {
+    it('should show suggestions with no highlighted suggestion if they were hidden', () => {
+      expectSuggestions(['Perl', 'PHP', 'Python']);
+
+      clearEvents();
       clickEscape();
+      expectDontLetBrowserHandleKeyDown();
+      expectSuggestions([]);
+
       clickUp();
+      expectDontLetBrowserHandleKeyDown();
       expectSuggestions(['Perl', 'PHP', 'Python']);
       expectHighlightedSuggestion(null);
     });
